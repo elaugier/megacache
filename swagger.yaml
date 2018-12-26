@@ -1,0 +1,101 @@
+swagger: "2.0"
+info:
+  description: "This API allow to get and set the triggers used with the optimized indexation for the capacity managment"
+  version: "1.0.0"
+  title: "Optimized indexation customization"
+  termsOfService: "http://nd/terms"
+  contact:
+    email: "eric.laugier@externe.bnpparibas.com"
+basePath: "/"
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "X-API-KEY"
+    in: "header"
+tags:
+- name: "patchingsystems"
+  description: "this end-point allow to get, post, delete and put triggers for an specific PartitionId and specific trigger type"
+paths:
+  /patchingsystems/{PartitionId}:
+    get:
+      tags:
+      - "patchingsystem"
+      summary: "allow to get all content by system"
+      description: ""
+      operationId: "getAllPatchingSystems"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "PartitionId"
+        in: "path"
+        description: "PartitionId name"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation. Return json structure containing Patching Systems"
+        204:
+          description: "successful operation. Return nothing if PartitionId is not defined"
+        500:
+          description: "operation failed"
+      security:
+      - api_key: []
+    delete:
+      tags:
+      - "patchingsystem"
+      summary: "Delete a PartitionId"
+      description: ""
+      operationId: "DeletePatchingSytem"
+      consumes :
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "PartitionId"
+        in: "path"
+        description: "PartitionId name"
+        required: true
+        type: "string"
+      - name: "TTL"
+        in: "path"
+        description: "TTL before deleting your PatchingSystem's content"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "successful operation"
+        500:
+          description: "operation failed"
+      security:
+        - api_key: []
+  /patchingsystems/{PartitionId}/{TTL}:
+    post:
+      tags:
+      - "patchingsystem"
+      summary: "Send a content affected to a PartitionId"
+      description: ""
+      operationId: "PostPatchingSytem"
+      consumes :
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "PartitionId"
+        in: "path"
+        description: "PartitionId name"
+        required: true
+        type: "string"
+      - name: "TTL"
+        in: "path"
+        description: "TTL before deleting your PatchingSystem's content, if =0 then delete instantaneous"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "successful operation"
+        500:
+          description: "operation failed"
+      security:
+        - api_key: []
