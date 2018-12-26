@@ -16,13 +16,31 @@ tags:
 - name: "patchingsystems"
   description: "this end-point allow to get, post, delete and put triggers for an specific PartitionId and specific trigger type"
 paths:
+  /patchingsystems/:
+    get:
+      tags:
+      - "patchingsystem"
+      summary: "allow to get all content by PatchingSystems"
+      description: ""
+      operationId: "getAllPatchingSystems"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation. Return json structure containing Patching Systems"
+        500:
+          description: "operation failed"
+      security:
+      - api_key: []
   /patchingsystems/{PartitionId}:
     get:
       tags:
       - "patchingsystem"
-      summary: "allow to get all content by system"
+      summary: "allow to get a content of a PatchingSystem"
       description: ""
-      operationId: "getAllPatchingSystems"
+      operationId: "getPatchingSystems"
       consumes:
       - "application/json"
       produces:
@@ -31,7 +49,7 @@ paths:
       - name: "PartitionId"
         in: "path"
         description: "PartitionId name"
-        required: false
+        required: true
         type: "string"
       responses:
         200:
